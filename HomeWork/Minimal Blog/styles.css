@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 10rem;
+}
+
+header div > * {
+  padding-left: 31px;
+}
+
+header a img {
+  height: 24px;
+  width: 24px;
+  margin-bottom: -5px;
+}
+
+#search {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -5px;
+}
+
+#search-text {
+  border: none;
+  width: 250px;
+}
+
+.why {
+  background-color: #fbfbfb;
+  padding: 70px 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.why img {
+  width: 476px;
+  height: 323px;
+}
+
+.why-content {
+  padding-left: 4rem;
+}
+
+.why-content-header {
+  font-size: 60px;
+  font-weight: 700;
+  width: 22rem;
+}
+
+.why-content-questtion {
+  font-size: 30px;
+  font-weight: 400;
+  color: #4a5568;
+}
+
+.why-content-header img {
+  height: 67px;
+  width: 70px;
+}
+
+main {
+  padding: 0 10rem;
+}
+
+main > div {
+  margin: 1.35rem 0;
+}
+
+main h1 {
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.fisrt-content {
+  border: 1px #e2e2e2 solid;
+  border-radius: 5px;
+}
+
+article {
+  box-shadow: 0 5px 4px #dddddd;
+}
+
+.fisrt-content article {
+  display: flex;
+  align-items: center;
+}
+
+.fisrt-content h1 {
+  font-size: 2rem;
+}
+
+.fisrt-content section {
+  width: 55%;
+}
+
+.fisrt-content img {
+  width: 45%;
+}
+
+.fisrt-content section {
+  padding: 0 3.25rem;
+}
+
+section * {
+  padding: 0.8rem 0;
+}
+
+section p,
+section time {
+  color: #718096;
+}
+
+section a {
+  color: #2d3748;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+section div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.second-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.second-content article {
+  width: 18.75rem;
+  border-radius: 0 0 5px 5px;
+}
+
+.second-content section {
+  padding: 0 1rem;
+}
+
+.second-content img {
+  width: 100%;
+}
+
+.third-content article {
+  display: flex;
+  align-items: center;
+  box-shadow: none;
+  background-color: #f7fafc;
+}
+
+.third-content section {
+  width: 45%;
+  padding: 4rem;
+}
+
+.third-content img {
+  width: 55%;
+}
+
+.third-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+footer {
+  padding: 2rem 10rem;
+  border-top: 1px #e8e8e8 solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+footer span {
+  font-weight: 700;
+}
+
+footer img {
+  height: 24px;
+  width: 24px;
+  margin-bottom: -5px;
+}
+
+footer div > * {
+  padding-left: 31px;
+}
+
+button {
+  width: 122px;
+  height: 37px;
+  font-weight: 700;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  background-color: #6b46c1;
+}
+
+button img {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-bottom: -4px;
+}
+
+main img {
+  width: 100%;
+}
