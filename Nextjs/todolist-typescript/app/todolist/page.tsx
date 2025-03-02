@@ -2,9 +2,11 @@
 import { FC, useState } from "react";
 import { Button, Card, Input, message, Table } from "antd";
 import { v4 as uuidv4 } from "uuid";
+import DialogConfirm from "./DialogConfirm";
 
 // Style
 import "./style.css";
+import { valueType } from "antd/es/statistic/utils";
 
 interface Todo {
   key: string;
@@ -15,6 +17,8 @@ const TodoList: FC = () => {
   const [todoList, setTodoList] = useState<Todo[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   const [rowData, setRowData] = useState<Todo>();
+  const [dataDelete, setDataDelete] = useState<Todo>();
+  const [inputValue, setInputValue] = useState<string>();
 
   const onAdd = (value: string) => {
     const todo = todoList.find((todo: Todo) => todo.value === value);
@@ -28,12 +32,17 @@ const TodoList: FC = () => {
           value: value,
         },
       ]);
+      setInputValue("");
     }
   };
 
   const onEdit = (todo: Todo) => {
-    setRowData(todo);
-    setIsEdit(true);
+    if (isEdit && todo) {
+      setEditDialogOpen(true);
+    } else {
+      setRowData(todo);
+      setIsEdit(true);
+    }
   };
 
   const onSubmit = () => {
@@ -47,9 +56,32 @@ const TodoList: FC = () => {
     setIsEdit(false);
   };
 
-  const onDelete = (key: string) => {
-    setTodoList(todoList.filter((todo: Todo) => todo.key !== key));
+  const onDelete = (data: Todo) => {
+    setDataDelete(data);
+    setDeleteDialogOpen(true);
   };
+
+  const deleteTodo = () => {
+    setTodoList(todoList.filter((todo: Todo) => todo.key !== dataDelete?.key));
+  };
+
+  const { setIsDialogOpen: setEditDialogOpen, renderDialog: renderEditDialog } =
+    DialogConfirm({
+      action: "edit",
+      function: "todo",
+      submitFunction: onSubmit,
+      displayName: rowData?.value,
+    });
+
+  const {
+    setIsDialogOpen: setDeleteDialogOpen,
+    renderDialog: renderDeleteDialog,
+  } = DialogConfirm({
+    action: "delete",
+    function: "todo",
+    submitFunction: deleteTodo,
+    displayName: dataDelete?.value,
+  });
 
   return (
     <div className="container">
@@ -68,6 +100,8 @@ const TodoList: FC = () => {
           onPressEnter={(e: React.KeyboardEvent<HTMLInputElement>) =>
             onAdd((e.target as HTMLInputElement).value)
           }
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <Table
           columns={[
@@ -76,7 +110,7 @@ const TodoList: FC = () => {
               title: "Todo",
               dataIndex: "value",
               render: (_, row) => (
-                <div style={{ width: "25vw" }}>
+                <div style={{ width: "32vw" }}>
                   {isEdit && rowData?.key === row.key ? (
                     <Input
                       style={{ width: "90%" }}
@@ -87,6 +121,7 @@ const TodoList: FC = () => {
                           value: e.target.value,
                         } as Todo)
                       }
+                      onPressEnter={() => onSubmit()}
                     ></Input>
                   ) : (
                     <p>{row.value}</p>
@@ -98,7 +133,7 @@ const TodoList: FC = () => {
               key: "action",
               title: "Action",
               dataIndex: "",
-              width: "260px",
+              width: "200px",
               align: "right",
               render: (_, row) => {
                 return (
@@ -121,21 +156,23 @@ const TodoList: FC = () => {
                         </Button>
                       </>
                     ) : (
-                      <Button
-                        variant="text"
-                        color="purple"
-                        onClick={() => onEdit(row)}
-                      >
-                        Edit
-                      </Button>
+                      <>
+                        <Button
+                          variant="text"
+                          color="purple"
+                          onClick={() => onEdit(row)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="text"
+                          color="danger"
+                          onClick={() => onDelete(row)}
+                        >
+                          Delete
+                        </Button>
+                      </>
                     )}
-                    <Button
-                      variant="text"
-                      color="danger"
-                      onClick={() => onDelete(row.key)}
-                    >
-                      Delete
-                    </Button>
                   </div>
                 );
               },
@@ -144,6 +181,8 @@ const TodoList: FC = () => {
           dataSource={todoList}
           scroll={{ y: "40vh" }}
         />
+        {renderEditDialog()}
+        {renderDeleteDialog()}
       </Card>
     </div>
   );
